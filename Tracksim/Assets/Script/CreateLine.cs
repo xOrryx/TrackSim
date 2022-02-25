@@ -11,9 +11,9 @@ public class CreateLine : MonoBehaviour
     private Ray ray;
     private float timeButtonDown;
 
-    List<Vector3> points = new List<Vector3>();
+    private List<Vector3> points = new List<Vector3>();
 
-    static int i = 0;
+    [SerializeField] private OnlyOneButton status;
 
     void Start()
     {
