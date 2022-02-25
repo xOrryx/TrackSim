@@ -6,8 +6,9 @@ using UnityEngine.EventSystems;
 public class CreateLine : MonoBehaviour
 {
     [SerializeField] private Plane mainPlane;
+    [SerializeField] private LineRenderer mainLine;
+
     private Ray ray;
-    float distance = 0;
     private float timeButtonDown;
 
     List<Vector3> points = new List<Vector3>();
@@ -16,7 +17,8 @@ public class CreateLine : MonoBehaviour
 
     void Start()
     {
-        
+        // add start point
+        points.Add(new Vector3(0, 0, 0));
     }
 
     // Update is called once per frame
@@ -47,12 +49,10 @@ public class CreateLine : MonoBehaviour
 
     public void LeftMouseClick(Ray ray, RaycastHit[] hits)
     {
-        float distance;
 
         if(hits.Length == 1)
         {
             Vector3 tempPos =  mainPlane.ClosestPointOnPlane(hits[0].point);
-            Debug.Log(hits[0].point);
 
             points.Add(tempPos);
             CreateCube();
@@ -67,14 +67,25 @@ public class CreateLine : MonoBehaviour
 
         cube.transform.position = points[points.Count-1];
         cube.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        cube.name = "cubeRED" + i.ToString() + this.name.ToString();
+        cube.name = "cubeRED" + (points.Count-1).ToString() + this.name.ToString();
         cube.GetComponent<Renderer>().material.color = Color.red;
         Destroy(cube.GetComponent<BoxCollider>());   
     } 
     
     private void CreateLineRender()
     {
+        ResetLine();
+        mainLine.positionCount = points.Count;
 
+        for(int i = 0; i < points.Count; i++)
+        {
+            mainLine.SetPosition(i, points[i]);
+        }
+    }
+
+    private void ResetLine()
+    {
+        mainLine.positionCount = 0;
     }
 
 }
