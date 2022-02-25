@@ -12,8 +12,13 @@ public class CreateLine : MonoBehaviour
     private float timeButtonDown;
 
     private List<Vector3> points = new List<Vector3>();
+    private List<Vector3> pointList = new List<Vector3>();
+    private int vertexCount = 12;
+    private int number = 0;
 
-    [SerializeField] private OnlyOneButton status;
+
+
+    [SerializeField] private OnlyOneButton buttonStatus;
 
     void Start()
     {
@@ -74,10 +79,60 @@ public class CreateLine : MonoBehaviour
     
     private void CreateLineRender()
     {
+        Debug.Log(points.Count);
+        if(!buttonStatus.status) // straight
+        {
+            DrawLine();
+        }
+        else //curve
+        {
+            Debug.Log("ahoj " + number);
+            if (number == 1)
+            {
+                int tempC = points.Count;
+                MakeCurve();
+                points.RemoveAt(tempC - 1);
+                points.RemoveAt(tempC - 2);
+                DrawLine();
+                number = 0;
+            }
+            else
+                number++;
+        }
+
+    }
+
+
+
+    private void MakeCurve()
+    {
+        for (float ratio = 0; ratio <= 1; ratio += 1.0f / vertexCount)
+        {
+            var tangentLineVertex1 = Vector3.Lerp(points[points.Count - 3], points[points.Count - 2], ratio);
+            var tangentLineVertex2 = Vector3.Lerp(points[points.Count - 2], points[points.Count - 1], ratio);
+            var bezierpoint = Vector3.Lerp(tangentLineVertex1, tangentLineVertex2, ratio);
+            pointList.Add(bezierpoint);
+        }
+
+        Debug.Log(pointList.Count);
+
+        for(int i = 0; i < pointList.Count; i++)
+        {
+            points.Add(pointList[i]);
+        }
+        pointList.Clear();
+       
+    }
+
+    private void DrawLine()
+    {
         ResetLine();
+
+        Debug.Log(points.Count);
+
         mainLine.positionCount = points.Count;
 
-        for(int i = 0; i < points.Count; i++)
+        for (int i = 0; i < points.Count; i++)
         {
             mainLine.SetPosition(i, points[i]);
         }

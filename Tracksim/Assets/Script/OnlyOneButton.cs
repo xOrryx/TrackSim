@@ -7,9 +7,16 @@ public class OnlyOneButton : MonoBehaviour
 {
     [SerializeField] private Button straightButt;
     [SerializeField] private Button curvedButt;
-    public bool status; // false - straight, true = curve
+    public bool status = false; // false - straight, true = curve
     private ColorBlock buttonColor;
-  
+
+    private void Start()
+    {
+        buttonColor = straightButt.colors;
+        buttonColor.normalColor = new Color32(255, 128, 128, 255);
+        straightButt.colors = buttonColor;
+    }
+
     public void ChangeButtonStraight()
     {
         buttonColor = straightButt.colors;
