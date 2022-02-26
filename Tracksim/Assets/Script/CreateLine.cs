@@ -11,7 +11,7 @@ public class CreateLine : MonoBehaviour
     private Ray ray;
     private float timeButtonDown;
 
-    private List<Vector3> points = new List<Vector3>();
+    public List<Vector3> points = new List<Vector3>();
     private List<Vector3> pointList = new List<Vector3>();
     private int vertexCount = 12;
     private int number = 0;
