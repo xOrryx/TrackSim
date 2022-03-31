@@ -79,14 +79,12 @@ public class CreateLine : MonoBehaviour
     
     private void CreateLineRender()
     {
-        Debug.Log(points.Count);
         if(!buttonStatus.status) // straight
         {
             DrawLine();
         }
         else //curve
         {
-            Debug.Log("ahoj " + number);
             if (number == 1)
             {
                 int tempC = points.Count;
@@ -101,8 +99,6 @@ public class CreateLine : MonoBehaviour
         }
 
     }
-
-
 
     private void MakeCurve()
     {
@@ -128,13 +124,13 @@ public class CreateLine : MonoBehaviour
     {
         ResetLine();
 
-        Debug.Log(points.Count);
-
         mainLine.positionCount = points.Count;
 
         for (int i = 0; i < points.Count; i++)
         {
-            mainLine.SetPosition(i, points[i]);
+            Vector3 temp = points[i];
+            temp.y = 0.3f;
+            mainLine.SetPosition(i, temp);
         }
     }
 
