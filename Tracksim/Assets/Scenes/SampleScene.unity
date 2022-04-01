@@ -2083,8 +2083,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainLine: {fileID: 699427356}
-  points: []
   buttonStatus: {fileID: 725583024}
+  lineMaterial: {fileID: 2100000, guid: 2ddc505cfd154cf41bfcb6290fcf0af1, type: 2}
+  points: []
+  triPoints: []
+  usedTri: 0
 --- !u!1 &2054826531
 GameObject:
   m_ObjectHideFlags: 0

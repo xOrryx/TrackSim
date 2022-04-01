@@ -40,7 +40,7 @@ public class Export : MonoBehaviour
         writer.WriteLine("lines_segments_array:");
         writer.WriteLine();
 
-        for(int i = 0; i < line.points.Count-1; i++)
+        for (int i = 0; i < line.points.Count - 1; i++)
         {
             string x1 = "F4";
             string x2 = "F4";
@@ -63,7 +63,7 @@ public class Export : MonoBehaviour
                 x1 = "F1";
                 mezera1 = "    ";
             }
-            if (line.points[i+1].x % 1 == 0)
+            if (line.points[i + 1].x % 1 == 0)
             {
                 x2 = "F1";
                 mezera2 = "    ";
@@ -73,7 +73,7 @@ public class Export : MonoBehaviour
                 y1 = "F1";
                 mezera3 = "    ";
             }
-            if (line.points[i+1].z % 1 == 0)
+            if (line.points[i + 1].z % 1 == 0)
             {
                 y2 = "F1";
                 mezera4 = "    ";
@@ -89,21 +89,90 @@ public class Export : MonoBehaviour
             {
                 parita2 = "";
             }
-            if (Mathf.Sign(line.points[i+1].x) == -1)
+            if (Mathf.Sign(line.points[i + 1].x) == -1)
             {
                 parita3 = "";
             }
-            if (Mathf.Sign(line.points[i+1].z) == -1)
+            if (Mathf.Sign(line.points[i + 1].z) == -1)
             {
                 parita4 = "";
             }
 
-            writer.WriteLine("  - [" + parita1 + (line.points[i].x/100).ToString(x1, CultureInfo.InvariantCulture) + "," + mezera1 + parita2 + (line.points[i].z/100).ToString(y1, CultureInfo.InvariantCulture) + "," + mezera3 + parita3 + (line.points[i + 1].x/100).ToString(x2, CultureInfo.InvariantCulture) + "," + mezera2 + parita4 + (line.points[i + 1].z/100).ToString(y2, CultureInfo.InvariantCulture) + "]");
+            writer.WriteLine("  - [" + parita1 + (line.points[i].x / 100).ToString(x1, CultureInfo.InvariantCulture) + "," + mezera1 + parita2 + (line.points[i].z / 100).ToString(y1, CultureInfo.InvariantCulture) + "," + mezera3 + parita3 + (line.points[i + 1].x / 100).ToString(x2, CultureInfo.InvariantCulture) + "," + mezera2 + parita4 + (line.points[i + 1].z / 100).ToString(y2, CultureInfo.InvariantCulture) + "]");
+        }
+
+        if (line.usedTri)
+        {
+            WriteTriLines(writer);
         }
 
         writer.WriteLine();
         writer.WriteLine("line_width: 0.02");
         writer.Close();
+    }
+
+    private void WriteTriLines(StreamWriter writer)
+    {
+        for (int i = 0; i < line.triPoints.Count - 1; i++)
+        {
+            string x1 = "F4";
+            string x2 = "F4";
+            string y1 = "F4";
+            string y2 = "F4";
+
+            string mezera1 = " ";
+            string mezera2 = " ";
+            string mezera3 = " ";
+            string mezera4 = " ";
+
+            string parita1 = " ";
+            string parita2 = " ";
+            string parita3 = " ";
+            string parita4 = " ";
+
+
+            if (line.triPoints[i].x % 1 == 0)
+            {
+                x1 = "F1";
+                mezera1 = "    ";
+            }
+            if (line.triPoints[i + 1].x % 1 == 0)
+            {
+                x2 = "F1";
+                mezera2 = "    ";
+            }
+            if (line.triPoints[i].z % 1 == 0)
+            {
+                y1 = "F1";
+                mezera3 = "    ";
+            }
+            if (line.triPoints[i + 1].z % 1 == 0)
+            {
+                y2 = "F1";
+                mezera4 = "    ";
+            }
+
+
+
+            if (Mathf.Sign(line.triPoints[i].x) == -1)
+            {
+                parita1 = "";
+            }
+            if (Mathf.Sign(line.triPoints[i].z) == -1)
+            {
+                parita2 = "";
+            }
+            if (Mathf.Sign(line.triPoints[i + 1].x) == -1)
+            {
+                parita3 = "";
+            }
+            if (Mathf.Sign(line.triPoints[i + 1].z) == -1)
+            {
+                parita4 = "";
+            }
+
+            writer.WriteLine("  - [" + parita1 + (line.triPoints[i].x / 100).ToString(x1, CultureInfo.InvariantCulture) + "," + mezera1 + parita2 + (line.triPoints[i].z / 100).ToString(y1, CultureInfo.InvariantCulture) + "," + mezera3 + parita3 + (line.triPoints[i + 1].x / 100).ToString(x2, CultureInfo.InvariantCulture) + "," + mezera2 + parita4 + (line.triPoints[i + 1].z / 100).ToString(y2, CultureInfo.InvariantCulture) + "]");
+        }
     }
 
 }

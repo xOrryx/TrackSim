@@ -7,16 +7,18 @@ public class CreateLine : MonoBehaviour
 {
     [SerializeField] private Plane mainPlane;
     [SerializeField] private LineRenderer mainLine;
+    [SerializeField] private OnlyOneButton buttonStatus;
+    [SerializeField] private Material lineMaterial;
 
     private Ray ray;
     private float timeButtonDown;
-
-    public List<Vector3> points = new List<Vector3>();
     private List<Vector3> pointList = new List<Vector3>();
     private int vertexCount = 12;
     private int number = 0;
 
-    [SerializeField] private OnlyOneButton buttonStatus;
+    public List<Vector3> points = new List<Vector3>();
+    public List<Vector3> triPoints = new List<Vector3>();
+    public bool usedTri = false;
 
     public enum Status
     {
@@ -106,7 +108,10 @@ public class CreateLine : MonoBehaviour
         }
         else if(buttonStatus.typeLine == Status.tri) // tri Lines
         {
-
+            usedTri = true;
+            makeTriLines();
+            DrawLine();
+            DrawTriLines();
         }
         else // new Line
         {
@@ -115,6 +120,55 @@ public class CreateLine : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Calculate parallels
+    /// </summary>
+    private void makeTriLines()
+    {
+        Debug.Log(points.Count);
+
+        Vector3 pointStart = points[points.Count - 2]; // penultimate point
+        Vector3 pointEnd = points[points.Count-1];
+
+        Debug.Log(pointStart + " " + pointEnd);
+
+        Vector3 normal = (pointEnd - pointStart);
+        normal /= normal.z;
+
+        if (normal != Vector3.forward && normal != Vector3.back)
+        {
+            // create upper parallel
+            pointStart.z -= 1;
+            triPoints.Add(pointStart);
+            pointEnd.z -= 1;
+            triPoints.Add(pointEnd);
+
+            // create lower parallel
+            pointStart.z += 2;
+            triPoints.Add(pointStart);
+            pointEnd.z += 2;
+            triPoints.Add(pointEnd);
+        }
+        else
+        {
+            // create upper parallel
+            pointStart.x -= 1;
+            triPoints.Add(pointStart);
+            pointEnd.x -= 1;
+            triPoints.Add(pointEnd);
+
+            // create lower parallel
+            pointStart.x += 1;
+            triPoints.Add(pointStart);
+            pointEnd.x += 1;
+            triPoints.Add(pointEnd);
+        }
+
+    }
+
+    /// <summary>
+    /// Calculate curve between two points
+    /// </summary>
     private void MakeCurve()
     {
         for (float ratio = 0; ratio <= 1; ratio += 1.0f / vertexCount)
@@ -125,14 +179,11 @@ public class CreateLine : MonoBehaviour
             pointList.Add(bezierpoint);
         }
 
-        Debug.Log(pointList.Count);
-
         for(int i = 0; i < pointList.Count; i++)
         {
             points.Add(pointList[i]);
         }
-        pointList.Clear();
-       
+        pointList.Clear();  
     }
 
     private void DrawLine()
@@ -149,9 +200,45 @@ public class CreateLine : MonoBehaviour
         }
     }
 
+    private void DrawTriLines()
+    {
+        ResetTriLines();
+
+        for (int i = 0; i < triPoints.Count; i+=2)
+        {
+            GameObject emptyObject = new GameObject();
+            emptyObject.AddComponent<LineRenderer>();
+            
+            LineRenderer lineRenObj = emptyObject.GetComponent<LineRenderer>();
+            lineRenObj.transform.name = "lineTri" + (i+1).ToString();
+
+            lineRenObj.positionCount = 2;
+
+            Vector3 triTemp1 = triPoints[i];
+            triTemp1.y = 0.3f;
+            Vector3 triTemp2 = triPoints[i+1];
+            triTemp2.y = 0.3f;
+
+            lineRenObj.SetPositions(new Vector3[] { triTemp1, triTemp2 });
+
+            lineRenObj.material = lineMaterial;
+            lineRenObj.startWidth = 0.25f;
+            lineRenObj.endWidth = 0.25f;
+
+        }
+    }
+
     private void ResetLine()
     {
         mainLine.positionCount = 0;
+    }
+
+    private void ResetTriLines()
+    {
+        for (int i = 1; i <= triPoints.Count/2; ++i)
+        {
+            Destroy(GameObject.Find("lineTri" + i.ToString()));
+        }
     }
 
 }
