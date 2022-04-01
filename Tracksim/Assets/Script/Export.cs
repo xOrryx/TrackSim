@@ -98,7 +98,7 @@ public class Export : MonoBehaviour
                 parita4 = "";
             }
 
-            writer.WriteLine("  - [" + parita1 + line.points[i].x.ToString(x1, CultureInfo.InvariantCulture) + "," + mezera1 + parita2 + line.points[i].z.ToString(y1, CultureInfo.InvariantCulture) + "," + mezera3 + parita3 + line.points[i + 1].x.ToString(x2, CultureInfo.InvariantCulture) + "," + mezera2 + parita4 + line.points[i + 1].z.ToString(y2, CultureInfo.InvariantCulture) + "]");
+            writer.WriteLine("  - [" + parita1 + (line.points[i].x/100).ToString(x1, CultureInfo.InvariantCulture) + "," + mezera1 + parita2 + (line.points[i].z/100).ToString(y1, CultureInfo.InvariantCulture) + "," + mezera3 + parita3 + (line.points[i + 1].x/100).ToString(x2, CultureInfo.InvariantCulture) + "," + mezera2 + parita4 + (line.points[i + 1].z/100).ToString(y2, CultureInfo.InvariantCulture) + "]");
         }
 
         writer.WriteLine();
