@@ -16,9 +16,16 @@ public class CreateLine : MonoBehaviour
     private int vertexCount = 12;
     private int number = 0;
 
-
-
     [SerializeField] private OnlyOneButton buttonStatus;
+
+    public enum Status
+    {
+        straight = 0,
+        curve = 1,
+        tri = 2,
+        newLine = 3
+    }
+
 
     void Start()
     {
@@ -79,11 +86,11 @@ public class CreateLine : MonoBehaviour
     
     private void CreateLineRender()
     {
-        if(!buttonStatus.status) // straight
+        if(buttonStatus.typeLine == Status.straight) //straight
         {
             DrawLine();
         }
-        else //curve
+        else if(buttonStatus.typeLine == Status.curve) //curve
         {
             if (number == 1)
             {
@@ -96,6 +103,14 @@ public class CreateLine : MonoBehaviour
             }
             else
                 number++;
+        }
+        else if(buttonStatus.typeLine == Status.tri) // tri Lines
+        {
+
+        }
+        else // new Line
+        {
+
         }
 
     }
