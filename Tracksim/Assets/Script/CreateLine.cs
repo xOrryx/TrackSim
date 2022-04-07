@@ -80,7 +80,7 @@ public class CreateLine : MonoBehaviour
         // cube.transform.parent = this.transform;
 
         cube.transform.position = points[points.Count-1];
-        cube.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        cube.transform.localScale = new Vector3(1, 1, 1);
         cube.name = "cubeRED" + (points.Count-1).ToString() + this.name.ToString();
         cube.GetComponent<Renderer>().material.color = Color.red;
         Destroy(cube.GetComponent<BoxCollider>());   
