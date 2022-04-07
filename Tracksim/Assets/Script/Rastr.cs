@@ -18,10 +18,13 @@ public class Rastr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        distance = 1;
+        distance = 5;
         // Plane, which was used, doesnt have Transform API. It's not possible to get its sizes. I managed it by measuring it
-        verticalLine = new Vector3[] { new Vector3(0, 0.05f, -15), startPoint, new Vector3(0, 0.05f, 35) };
-        horizontalLine = new Vector3[] { new Vector3(-10, 0.05f, 0), startPoint, new Vector3(40, 0.05f, 0) };
+        //verticalLine = new Vector3[] { new Vector3(0, 0.05f, -15), startPoint, new Vector3(0, 0.05f, 35) };
+        //horizontalLine = new Vector3[] { new Vector3(-10, 0.05f, 0), startPoint, new Vector3(40, 0.05f, 0) };
+
+        verticalLine = new Vector3[] { new Vector3(0, 0.05f, -15), startPoint, new Vector3(0, 0.05f, 53.5f) };
+        horizontalLine = new Vector3[] { new Vector3(-10, 0.05f, 0), startPoint, new Vector3(100.5f, 0.05f, 0) };
 
         CreateRastr();
 
@@ -88,9 +91,9 @@ public class Rastr : MonoBehaviour
         int counter = 0;
 
         int minIv = Mathf.FloorToInt((-10) / distance);
-        int maxIv = Mathf.FloorToInt((40) / distance);
+        int maxIv = Mathf.FloorToInt((100.5f) / distance);
         int minIh = Mathf.FloorToInt((-15) / distance);
-        int maxIh = Mathf.FloorToInt((35) / distance);
+        int maxIh = Mathf.FloorToInt((53) / distance);
 
         for (int i = minIv; i <= maxIv; ++i)
         {

@@ -712,7 +712,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 1
-        value: 0.2525245
+        value: 0.51515114
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1424,7 +1424,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 15, y: 45, z: 10}
+  m_LocalPosition: {x: 37.3, y: 71.2, z: 16.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1884,7 +1884,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: 5
 --- !u!222 &1276884656
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2064,8 +2064,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1619673157}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 0, z: 10}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalPosition: {x: 45.1489, y: -0, z: 19.211}
+  m_LocalScale: {x: 11.030001, y: 1, z: 6.842}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
