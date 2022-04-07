@@ -20,6 +20,9 @@ public class CreateLine : MonoBehaviour
     public List<Vector3> triPoints = new List<Vector3>();
     public bool usedTri = false;
 
+    // count new lines
+    static int counterLine = 0;
+
     public enum Status
     {
         straight = 0,
@@ -63,14 +66,20 @@ public class CreateLine : MonoBehaviour
 
     public void LeftMouseClick(Ray ray, RaycastHit[] hits)
     {
-
-        if(hits.Length == 1)
+        if(hits.Length == 1 && counterLine == 0)
         {
             Vector3 tempPos =  mainPlane.ClosestPointOnPlane(hits[0].point);
 
             points.Add(tempPos);
             CreateCube();
             CreateLineRender();
+        }
+        else
+        {
+            Vector3 tempPos = mainPlane.ClosestPointOnPlane(hits[0].point);
+
+            //create new points container
+            
         }
     }
 
@@ -115,10 +124,30 @@ public class CreateLine : MonoBehaviour
         }
         else // new Line
         {
-
+            //init new LineRenderer
+            CreateNewLineRenderer();
+            //
         }
 
     }
+
+    /// <summary>
+    /// Init new LineRenderer
+    /// </summary>
+    private void CreateNewLineRenderer()
+    {
+        //Inicialization of new gameobject
+        GameObject newEmptyObject = new GameObject();
+        newEmptyObject.transform.name = "newLine" + counterLine.ToString();
+        newEmptyObject.AddComponent<LineRenderer>();
+        LineRenderer newMainLine = newEmptyObject.GetComponent<LineRenderer>();
+
+        // inicialization of design of line (color, width and material)
+        newMainLine.material = lineMaterial;
+        newMainLine.startWidth = 0.5f;
+        newMainLine.endWidth = 0.5f;
+    }
+
 
     /// <summary>
     /// Calculate parallels
