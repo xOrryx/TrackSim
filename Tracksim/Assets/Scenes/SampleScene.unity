@@ -1893,7 +1893,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1042999975}
+        m_TargetAssemblyTypeName: DropDownInput, Assembly-CSharp
+        m_MethodName: DDTypeInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &743078837
 MonoBehaviour:
@@ -2482,6 +2494,7 @@ GameObject:
   - component: {fileID: 1042999972}
   - component: {fileID: 1042999974}
   - component: {fileID: 1042999973}
+  - component: {fileID: 1042999975}
   m_Layer: 5
   m_Name: Panel_triLine
   m_TagString: Untagged
@@ -2551,6 +2564,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042999971}
   m_CullTransparentMesh: 1
+--- !u!114 &1042999975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042999971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14dadaf08611652409c638dafa22f719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropDownShape: {fileID: 1115274503}
+  dropDownType: {fileID: 743078836}
+  line: {fileID: 1619673162}
 --- !u!1 &1077200568
 GameObject:
   m_ObjectHideFlags: 0
@@ -2952,7 +2980,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1042999975}
+        m_TargetAssemblyTypeName: DropDownInput, Assembly-CSharp
+        m_MethodName: DDShapeInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1115274504
 MonoBehaviour:
@@ -4150,6 +4190,8 @@ MonoBehaviour:
   points: []
   triPoints: []
   usedTri: 0
+  TriLineShape: 0
+  TriLineType: 0
 --- !u!1 &1663997560
 GameObject:
   m_ObjectHideFlags: 0

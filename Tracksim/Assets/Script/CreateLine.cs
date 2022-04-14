@@ -19,6 +19,8 @@ public class CreateLine : MonoBehaviour
     public List<Vector3> points = new List<Vector3>();
     public List<Vector3> triPoints = new List<Vector3>();
     public bool usedTri = false;
+    public int TriLineShape = 0;
+    public int TriLineType = 0;
 
     public enum Status
     {
@@ -54,11 +56,8 @@ public class CreateLine : MonoBehaviour
                 RaycastHit[] hits;
                 hits = Physics.RaycastAll(ray);
                 LeftMouseClick(ray, hits);
-
-
             }
         }
-        
     }
 
     public void LeftMouseClick(Ray ray, RaycastHit[] hits)
