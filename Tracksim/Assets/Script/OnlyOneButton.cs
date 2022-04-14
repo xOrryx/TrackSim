@@ -8,7 +8,7 @@ public class OnlyOneButton : MonoBehaviour
     [SerializeField] private Button straightButt;
     [SerializeField] private Button curvedButt;
     [SerializeField] private Button triButt;
-    [SerializeField] private Button newLineButt;
+    //[SerializeField] private Button newLineButt;
     private ColorBlock buttonColor;
 
     public CreateLine.Status typeLine; // type of line
@@ -31,10 +31,10 @@ public class OnlyOneButton : MonoBehaviour
         buttonColor = curvedButt.colors;
         buttonColor.normalColor = new Color32(255, 255, 255, 255);
         curvedButt.colors = buttonColor;
-
+        /*
         buttonColor = newLineButt.colors;
         buttonColor.normalColor = new Color32(255, 255, 255, 255);
-        newLineButt.colors = buttonColor;
+        newLineButt.colors = buttonColor;*/
 
         buttonColor = triButt.colors;
         buttonColor.normalColor = new Color32(255, 255, 255, 255);
@@ -52,10 +52,10 @@ public class OnlyOneButton : MonoBehaviour
         buttonColor = straightButt.colors;
         buttonColor.normalColor = new Color32(255, 255, 255, 255);
         straightButt.colors = buttonColor;
-
+        /*
         buttonColor = newLineButt.colors;
         buttonColor.normalColor = new Color32(255, 255, 255, 255);
-        newLineButt.colors = buttonColor;
+        newLineButt.colors = buttonColor;*/
 
         buttonColor = triButt.colors;
         buttonColor.normalColor = new Color32(255, 255, 255, 255);
@@ -77,17 +77,17 @@ public class OnlyOneButton : MonoBehaviour
         buttonColor = curvedButt.colors;
         buttonColor.normalColor = new Color32(255, 255, 255, 255);
         curvedButt.colors = buttonColor;
-
+        /*
         buttonColor = newLineButt.colors;
         buttonColor.normalColor = new Color32(255, 255, 255, 255);
-        newLineButt.colors = buttonColor;
+        newLineButt.colors = buttonColor;*/
     }
 
     public void ChangeButtonNewLine()
-    {
+    {/*
         buttonColor = newLineButt.colors;
         buttonColor.normalColor = new Color32(255, 128, 128, 255);
-        newLineButt.colors = buttonColor;
+        newLineButt.colors = buttonColor;*/
 
         typeLine = CreateLine.Status.newLine;
 
