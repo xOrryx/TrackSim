@@ -118,23 +118,30 @@ public class CreateLine : MonoBehaviour
             if(TriLineShape == 0) //straight
             {
                 usedTri = true;
-                makeTriLines();
+                makeTriLinesStraight();
                 DrawLine();
                 DrawTriLines();
             }
             else if(TriLineShape == 1) // curve
             {
-                switch (TriLineType)
+                usedTri = true;
+                if (number == 1)
                 {
-                    case 0: // one side -  left
-                        break;
-                    case 1: // one side -  right
-                        break;
-                    case 2: // both side
-                        break;
-                    default: // one side -  left
-                        break;
+                    int tempC = points.Count; // n + 2 -> n is before -> to create curve need 2 points + start point
+                    Vector3[] oldPoints = new Vector3[] { points[points.Count - 1], points[points.Count - 2], points[points.Count - 3]};
+                    Debug.Log(oldPoints[0] + " " + oldPoints[1] + " " + oldPoints[2]);
+                    MakeCurve();
+                    points.RemoveAt(tempC - 1);
+                    points.RemoveAt(tempC - 2);
+                    makeTriLinesCurve(oldPoints);
+                    DrawLine();
+                    DrawTriLines();
+                    number = 0;
+
+
                 }
+                else
+                    number++;
             }
             else
             {
@@ -170,20 +177,23 @@ public class CreateLine : MonoBehaviour
         pointList.Clear();
     }
 
+   
+
+    #region Calculate TriLine straight methods
+
     /// <summary>
-    /// Calculate parallels
+    /// Calculate parallels for straight line
     /// </summary>
-    private void makeTriLines()
+    private void makeTriLinesStraight()
     {
         Vector3 pointStart = points[points.Count - 2]; // penultimate point
-        Vector3 pointEnd = points[points.Count-1];
+        Vector3 pointEnd = points[points.Count - 1];
 
         Vector3 normal = (pointEnd - pointStart);
         normal /= normal.z;
 
         float angle1 = Vector3.Angle(normal, Vector3.forward);
         float angle2 = Vector3.Angle(normal, Vector3.back);
-
 
         switch (TriLineType)
         {
@@ -203,7 +213,6 @@ public class CreateLine : MonoBehaviour
 
     }
 
-    #region Calculate TriLine straight methods
     /// <summary>
     /// add points about right side lines (straight) to buffer
     /// </summary>
@@ -241,7 +250,7 @@ public class CreateLine : MonoBehaviour
     /// <param name="angle2"></param>
     private void addLeftSide(Vector3 pointStart, Vector3 pointEnd, float angle1, float angle2)
     {
-        if ((angle1 > 55 && angle1 < 125 || angle2 > 55 && angle2 < 125))
+        if ((angle1 > 60 && angle1 < 140))
         {
             // create upper parallel
             pointStart.z += 1;
@@ -303,6 +312,127 @@ public class CreateLine : MonoBehaviour
 
     #region Calculate TriLine curve methods
 
+    /// <summary>
+    /// Calculate parallels for curve lines
+    /// </summary>
+    private void makeTriLinesCurve(Vector3[] oldPoints)
+    {
+        Vector3[] curvePoints;
+        
+        switch (TriLineType)
+        {
+            case 0: // one side -  left
+                curvePoints = addLeftSideCurve(oldPoints);
+                break;
+            /*case 1: // one side -  right
+                addRightSide(pointStart, pointEnd, angle1, angle2);
+                break;
+            case 2: // both side
+                addBothSide(pointStart, pointEnd, angle1, angle2);
+                break;*/
+            default: // one side -  left
+                curvePoints = addLeftSideCurve(oldPoints);
+                break;
+        }
+
+        Debug.Log(curvePoints[0] + " " + curvePoints[1] + " " + curvePoints[2]);
+
+        for (float ratio = 0; ratio <= 1; ratio += 1.0f / vertexCount)
+        {
+            var tangentLineVertex1 = Vector3.Lerp(curvePoints[curvePoints.Length - 3], curvePoints[curvePoints.Length - 2], ratio);
+            var tangentLineVertex2 = Vector3.Lerp(curvePoints[curvePoints.Length - 2], curvePoints[curvePoints.Length - 1], ratio);
+            var bezierpoint = Vector3.Lerp(tangentLineVertex1, tangentLineVertex2, ratio);
+            pointList.Add(bezierpoint);
+        }
+        
+        for (int i = 0; i < pointList.Count; i++)
+        {
+            if (i == 0)
+                triPoints.Add(pointList[pointList.Count - i - 1]);
+            else
+            {
+                triPoints.Add(pointList[pointList.Count - i - 1]);
+                triPoints.Add(pointList[pointList.Count - i - 1]);
+            }
+        }
+        pointList.Clear();
+    }
+
+    /// <summary>
+    /// add points about left side lines (curve) to buffer
+    /// </summary>
+    /// <param name="oldPoints"></param>
+    private Vector3[] addLeftSideCurve(Vector3[] oldPoints)
+    {
+        Vector3 normal = oldPoints[0] - oldPoints[2];
+
+        normal /= Vector3.Magnitude(normal);
+
+        Vector3 normalAxisX = (oldPoints[2] + Vector3.right) - oldPoints[2];
+        Vector3 normalAxisZ = (oldPoints[2] + Vector3.forward) - oldPoints[2];
+        Vector3 normalAxisNegX = (oldPoints[2] + Vector3.left) - oldPoints[2];
+        Vector3 normalAxisNegz = (oldPoints[2] + Vector3.back) - oldPoints[2];
+
+        float angleX = Vector3.Angle(normalAxisX, normal);
+        float angleNegX = Vector3.Angle(normalAxisNegX, normal);
+        float angleZ = Vector3.Angle(normalAxisZ, normal);
+        float angleNegZ = Vector3.Angle(normalAxisNegz, normal);
+
+        if((angleX > 0 && angleX < 90) && (angleZ > 0 && angleZ < 90)) // I.
+        {
+            for(int i = 0; i < oldPoints.Length; ++i )
+            {
+                oldPoints[i].x -= 1;
+                oldPoints[i].z += 1;
+            }
+        }
+        else if ((angleX > 0 && angleX < 90) && (angleNegZ > 0 && angleNegZ < 90)) // IV.
+        {
+            for (int i = 0; i < oldPoints.Length; ++i)
+            {
+                oldPoints[i].x += 1;
+                oldPoints[i].z += 1;
+            }
+        }
+        else if ((angleNegX > 0 && angleNegX < 90) && (angleZ > 0 && angleZ < 90)) // II.
+        {
+            oldPoints[0].x -= 1;
+            oldPoints[0].z += 1;
+            oldPoints[1].x -= 1;
+            oldPoints[1].z -= 1;
+            oldPoints[2].x += 1;
+            oldPoints[2].z -= 1;
+        }
+        else if ((angleNegX > 0 && angleNegX < 90) && (angleNegZ > 0 && angleNegZ < 90)) // III.
+        {
+            for (int i = 0; i < oldPoints.Length; ++i)
+            {
+                oldPoints[i].x += 1;
+                oldPoints[i].z -= 1;
+            }
+        }
+
+        return oldPoints;
+
+        /*if ((angle1 > 60 && angle1 < 140))
+        {
+            // create upper parallel
+            pointStart.z += 1;
+            triPoints.Add(pointStart);
+            pointEnd.z += 1;
+            triPoints.Add(pointEnd);
+
+        }
+        else
+        {
+            // create left parallel
+            pointStart.x -= 1;
+            triPoints.Add(pointStart);
+            pointEnd.x -= 1;
+            triPoints.Add(pointEnd);
+        }*/
+    }
+
     #endregion
 
     #region Draw Line
@@ -325,8 +455,9 @@ public class CreateLine : MonoBehaviour
     {
         ResetTriLines();
 
-        for (int i = 0; i < triPoints.Count; i+=2)
+        for (int i = 0; i < (triPoints.Count-1); i+=2)
         {
+            Debug.Log(triPoints.Count);
             GameObject emptyObject = new GameObject();
             emptyObject.AddComponent<LineRenderer>();
             
