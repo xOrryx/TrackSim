@@ -113,7 +113,7 @@ public class Export : MonoBehaviour
 
     private void WriteTriLines(StreamWriter writer)
     {
-        for (int i = 0; i < line.triPoints.Count - 1; i++)
+        for (int i = 0; i < line.triPoints.Count - 1; i+=2)
         {
             string x1 = "F4";
             string x2 = "F4";
