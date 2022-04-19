@@ -16,6 +16,8 @@ public class CreateLine : MonoBehaviour
     private List<Vector3> pointList = new List<Vector3>();
     private int vertexCount = 12;
     private int number = 0;
+    private int widthSpace = 4;
+
 
     public List<Vector3> points = new List<Vector3>();
     public List<Vector3> triPoints = new List<Vector3>();
@@ -223,18 +225,18 @@ public class CreateLine : MonoBehaviour
         if ((angle1 > 55 && angle1 < 125 || angle2 > 55 && angle2 < 125))
         {
             // create upper parallel
-            pointStart.z -= 1;
+            pointStart.z -= widthSpace;
             triPoints.Add(pointStart);
-            pointEnd.z -= 1;
+            pointEnd.z -= widthSpace;
             triPoints.Add(pointEnd);
 
         }
         else
         {
             // create left parallel
-            pointStart.x += 1;
+            pointStart.x += widthSpace;
             triPoints.Add(pointStart);
-            pointEnd.x += 1;
+            pointEnd.x += widthSpace;
             triPoints.Add(pointEnd);
         }
     }
@@ -251,18 +253,18 @@ public class CreateLine : MonoBehaviour
         if ((angle1 > 60 && angle1 < 140))
         {
             // create upper parallel
-            pointStart.z += 1;
+            pointStart.z += widthSpace;
             triPoints.Add(pointStart);
-            pointEnd.z += 1;
+            pointEnd.z += widthSpace;
             triPoints.Add(pointEnd);
 
         }
         else
         {
             // create left parallel
-            pointStart.x -= 1;
+            pointStart.x -= widthSpace;
             triPoints.Add(pointStart);
-            pointEnd.x -= 1;
+            pointEnd.x -= widthSpace;
             triPoints.Add(pointEnd);
         }
     }
@@ -279,29 +281,29 @@ public class CreateLine : MonoBehaviour
         if ((angle1 > 55 && angle1 < 125 || angle2 > 55 && angle2 < 125))
         {
             // create upper parallel
-            pointStart.z -= 1;
+            pointStart.z -= widthSpace;
             triPoints.Add(pointStart);
-            pointEnd.z -= 1;
+            pointEnd.z -= widthSpace;
             triPoints.Add(pointEnd);
 
             // create lower parallel
-            pointStart.z += 2;
+            pointStart.z += widthSpace * 2;
             triPoints.Add(pointStart);
-            pointEnd.z += 2;
+            pointEnd.z += widthSpace * 2;
             triPoints.Add(pointEnd);
         }
         else
         {
             // create right parallel
-            pointStart.x -= 1;
+            pointStart.x -= widthSpace;
             triPoints.Add(pointStart);
-            pointEnd.x -= 1;
+            pointEnd.x -= widthSpace;
             triPoints.Add(pointEnd);
 
             // create left parallel
-            pointStart.x += 2;
+            pointStart.x += widthSpace*2;
             triPoints.Add(pointStart);
-            pointEnd.x += 2;
+            pointEnd.x += widthSpace*2;
             triPoints.Add(pointEnd);
         }
     }
@@ -396,32 +398,32 @@ public class CreateLine : MonoBehaviour
         {
             for(int i = 0; i < oldPoints.Length; ++i )
             {
-                oldPoints[i].x -= 1;
-                oldPoints[i].z += 1;
+                oldPoints[i].x -= widthSpace;
+                oldPoints[i].z += widthSpace;
             }
         }
         else if ((angleX > 0 && angleX < 90) && (angleNegZ > 0 && angleNegZ < 90)) // IV.
         {
             for (int i = 0; i < oldPoints.Length; ++i)
             {
-                oldPoints[i].x += 1;
-                oldPoints[i].z += 1;
+                oldPoints[i].x += widthSpace;
+                oldPoints[i].z += widthSpace;
             }
         }
         else if ((angleNegX > 0 && angleNegX < 90) && (angleZ > 0 && angleZ < 90)) // II.
         {
             for (int i = 0; i < oldPoints.Length; ++i)
             {
-                oldPoints[i].x -= 1;
-                oldPoints[i].z -= 1;
+                oldPoints[i].x -= widthSpace;
+                oldPoints[i].z -= widthSpace;
             }
         }
         else if ((angleNegX > 0 && angleNegX < 90) && (angleNegZ > 0 && angleNegZ < 90)) // III.
         {
             for (int i = 0; i < oldPoints.Length; ++i)
             {
-                oldPoints[i].x += 1;
-                oldPoints[i].z -= 1;
+                oldPoints[i].x += widthSpace;
+                oldPoints[i].z -= widthSpace;
             }
         }
 
@@ -450,39 +452,39 @@ public class CreateLine : MonoBehaviour
 
         if ((angleX > 0 && angleX < 90) && (angleZ > 0 && angleZ < 90)) // I.
         {
-            oldPoints[0].x += 1;
-            oldPoints[0].z -= 1;
-            oldPoints[1].x += 1;
-            oldPoints[1].z -= 1;
-            oldPoints[2].x += 1;
-            oldPoints[2].z -= 1;
+            oldPoints[0].x += widthSpace;
+            oldPoints[0].z -= widthSpace;
+            oldPoints[1].x += widthSpace;
+            oldPoints[1].z -= widthSpace;
+            oldPoints[2].x += widthSpace;
+            oldPoints[2].z -= widthSpace;
         }
         else if ((angleX > 0 && angleX < 90) && (angleNegZ > 0 && angleNegZ < 90)) // IV.
         {
-            oldPoints[0].x -= 1;
-            oldPoints[0].z -= 1;
-            oldPoints[1].x -= 1;
-            oldPoints[1].z -= 1;
-            oldPoints[2].x -= 1;
-            oldPoints[2].z -= 1;
+            oldPoints[0].x -= widthSpace;
+            oldPoints[0].z -= widthSpace;
+            oldPoints[1].x -= widthSpace;
+            oldPoints[1].z -= widthSpace;
+            oldPoints[2].x -= widthSpace;
+            oldPoints[2].z -= widthSpace;
         }
         else if ((angleNegX > 0 && angleNegX < 90) && (angleZ > 0 && angleZ < 90)) // II.
         {
-            oldPoints[0].x += 1;
-            oldPoints[0].z += 1;
-            oldPoints[1].x += 1;
-            oldPoints[1].z += 1;
-            oldPoints[2].x += 1;
-            oldPoints[2].z += 1;
+            oldPoints[0].x += widthSpace;
+            oldPoints[0].z += widthSpace;
+            oldPoints[1].x += widthSpace;
+            oldPoints[1].z += widthSpace;
+            oldPoints[2].x += widthSpace;
+            oldPoints[2].z += widthSpace;
         }
         else if ((angleNegX > 0 && angleNegX < 90) && (angleNegZ > 0 && angleNegZ < 90)) // III.
         {
-            oldPoints[0].x -= 1;
-            oldPoints[0].z += 1;
-            oldPoints[1].x -= 1;
-            oldPoints[1].z += 1;
-            oldPoints[2].x -= 1;
-            oldPoints[2].z += 1;
+            oldPoints[0].x -= widthSpace;
+            oldPoints[0].z += widthSpace;
+            oldPoints[1].x -= widthSpace;
+            oldPoints[1].z += widthSpace;
+            oldPoints[2].x -= widthSpace;
+            oldPoints[2].z += widthSpace;
         }
 
         return oldPoints;
@@ -510,39 +512,39 @@ public class CreateLine : MonoBehaviour
 
         if ((angleX > 0 && angleX < 90) && (angleZ > 0 && angleZ < 90)) // I.
         {
-            oldPoints[0].x += 1;
-            oldPoints[0].z -= 1;
-            oldPoints[1].x += 1;
-            oldPoints[1].z -= 1;
-            oldPoints[2].x += 1;
-            oldPoints[2].z -= 1;
+            oldPoints[0].x += widthSpace;
+            oldPoints[0].z -= widthSpace;
+            oldPoints[1].x += widthSpace;
+            oldPoints[1].z -= widthSpace;
+            oldPoints[2].x += widthSpace;
+            oldPoints[2].z -= widthSpace;
         }
         else if ((angleX > 0 && angleX < 90) && (angleNegZ > 0 && angleNegZ < 90)) // IV.
         {
-            oldPoints[0].x -= 1;
-            oldPoints[0].z -= 1;
-            oldPoints[1].x -= 1;
-            oldPoints[1].z -= 1;
-            oldPoints[2].x -= 1;
-            oldPoints[2].z -= 1;
+            oldPoints[0].x -= widthSpace;
+            oldPoints[0].z -= widthSpace;
+            oldPoints[1].x -= widthSpace;
+            oldPoints[1].z -= widthSpace;
+            oldPoints[2].x -= widthSpace;
+            oldPoints[2].z -= widthSpace;
         }
         else if ((angleNegX > 0 && angleNegX < 90) && (angleZ > 0 && angleZ < 90)) // II.
         {
-            oldPoints[0].x += 1;
-            oldPoints[0].z += 1;
-            oldPoints[1].x += 1;
-            oldPoints[1].z += 1;
-            oldPoints[2].x += 1;
-            oldPoints[2].z += 1;
+            oldPoints[0].x += widthSpace;
+            oldPoints[0].z += widthSpace;
+            oldPoints[1].x += widthSpace;
+            oldPoints[1].z += widthSpace;
+            oldPoints[2].x += widthSpace;
+            oldPoints[2].z += widthSpace;
         }
         else if ((angleNegX > 0 && angleNegX < 90) && (angleNegZ > 0 && angleNegZ < 90)) // III.
         {
-            oldPoints[0].x -= 1;
-            oldPoints[0].z += 1;
-            oldPoints[1].x -= 1;
-            oldPoints[1].z += 1;
-            oldPoints[2].x -= 1;
-            oldPoints[2].z += 1;
+            oldPoints[0].x -= widthSpace;
+            oldPoints[0].z += widthSpace;
+            oldPoints[1].x -= widthSpace;
+            oldPoints[1].z += widthSpace;
+            oldPoints[2].x -= widthSpace;
+            oldPoints[2].z += widthSpace;
         }
 
         return oldPoints;
