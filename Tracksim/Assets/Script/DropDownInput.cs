@@ -1,5 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+// (BPC-PRP project) creating Track for robot
+// author: Petr Šopák (221022)
+// team: team 3
+// class funtion: getting informations from user choice (for triLine feature)
+
 using UnityEngine;
 using UnityEngine.UI;
 

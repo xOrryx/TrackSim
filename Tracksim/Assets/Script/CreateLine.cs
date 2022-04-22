@@ -1,5 +1,9 @@
+// (BPC-PRP project) creating Track for robot
+// author: Petr Šopák (221022)
+// team: team 3
+// class function: main class to create Lines
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,7 +21,7 @@ public class CreateLine : MonoBehaviour
     private int vertexCount = 12;
     private int number = 0;
     private int widthSpace = 4;
-
+    private float widthLine = 0.5f;
 
     public List<Vector3> points = new List<Vector3>();
     public List<Vector3> triPoints = new List<Vector3>();
@@ -25,15 +29,15 @@ public class CreateLine : MonoBehaviour
     public int TriLineShape = 0;
     public int TriLineType = 0;
 
+    // three line types
     public enum Status
     {
         straight = 0,
         curve = 1,
-        tri = 2,
-        newLine = 3
+        tri = 2
     }
 
-
+    // Start is called on the start
     void Start()
     {
         // add start point
@@ -65,9 +69,13 @@ public class CreateLine : MonoBehaviour
 
     #region Public methods
 
+    /// <summary>
+    /// get the Left mouse click and find the closest point on plane
+    /// </summary>
+    /// <param name="ray"></param>
+    /// <param name="hits"></param>
     public void LeftMouseClick(Ray ray, RaycastHit[] hits)
     {
-
         if(hits.Length == 1)
         {
             Vector3 tempPos =  mainPlane.ClosestPointOnPlane(hits[0].point);
@@ -84,10 +92,12 @@ public class CreateLine : MonoBehaviour
 
     #region Renderer
 
+    /// <summary>
+    /// creating primitive object - Cube on the point 
+    /// </summary>
     private void CreateCube()
     {
         GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        // cube.transform.parent = this.transform;
 
         cube.transform.position = points[points.Count-1];
         cube.transform.localScale = new Vector3(1, 1, 1);
@@ -96,6 +106,9 @@ public class CreateLine : MonoBehaviour
         Destroy(cube.GetComponent<BoxCollider>());   
     } 
     
+    /// <summary>
+    /// Find what type of Line was chosen
+    /// </summary>
     private void CreateLineRender()
     {
         if(buttonStatus.typeLine == Status.straight) //straight
@@ -159,7 +172,6 @@ public class CreateLine : MonoBehaviour
     /// <summary>
     /// Calculate curve between two points
     /// </summary>
-    /// 
     private void MakeCurve()
     {
         for (float ratio = 0; ratio <= 1; ratio += 1.0f / vertexCount)
@@ -553,6 +565,9 @@ public class CreateLine : MonoBehaviour
 
     #region Draw Line
 
+    /// <summary>
+    /// Draw main Line (starts from 0,0,0)
+    /// </summary>
     private void DrawLine()
     {
         ResetLine();
@@ -565,8 +580,14 @@ public class CreateLine : MonoBehaviour
             temp.y = 0.3f;
             mainLine.SetPosition(i, temp);
         }
+
+        mainLine.startWidth = widthLine;
+        mainLine.endWidth = widthLine;
     }
 
+    /// <summary>
+    /// Draw other Lines, which were created (for TriLine)
+    /// </summary>
     private void DrawTriLines()
     {
         ResetTriLines();
@@ -589,8 +610,8 @@ public class CreateLine : MonoBehaviour
             lineRenObj.SetPositions(new Vector3[] { triTemp1, triTemp2 });
 
             lineRenObj.material = lineMaterial;
-            lineRenObj.startWidth = 0.5f;
-            lineRenObj.endWidth = 0.5f;
+            lineRenObj.startWidth = widthLine;
+            lineRenObj.endWidth = widthLine;
 
         }
     }
@@ -599,11 +620,17 @@ public class CreateLine : MonoBehaviour
 
     #region Reset Lines
 
+    /// <summary>
+    /// Delete Line
+    /// </summary>
     private void ResetLine()
     {
         mainLine.positionCount = 0;
     }
 
+    /// <summary>
+    /// Delete all TriLine lines
+    /// </summary>
     private void ResetTriLines()
     {
         for (int i = 1; i <= triPoints.Count/2; ++i)

@@ -1,5 +1,9 @@
+// (BPC-PRP project) creating Track for robot
+// author: Petr Šopák (221022)
+// team: team 3
+// class function: creating grid by User selected distance for easier choosing the points
+
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,10 +23,8 @@ public class Rastr : MonoBehaviour
     void Start()
     {
         distance = 5;
-        // Plane, which was used, doesnt have Transform API. It's not possible to get its sizes. I managed it by measuring it
-        //verticalLine = new Vector3[] { new Vector3(0, 0.05f, -15), startPoint, new Vector3(0, 0.05f, 35) };
-        //horizontalLine = new Vector3[] { new Vector3(-10, 0.05f, 0), startPoint, new Vector3(40, 0.05f, 0) };
 
+        // Plane, which was used, doesnt have Transform API. It's not possible to get its sizes. I managed it by measuring it
         verticalLine = new Vector3[] { new Vector3(0, 0.05f, -15), startPoint, new Vector3(0, 0.05f, 53.5f) };
         horizontalLine = new Vector3[] { new Vector3(-10, 0.05f, 0), startPoint, new Vector3(100.5f, 0.05f, 0) };
 

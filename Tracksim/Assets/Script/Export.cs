@@ -1,5 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+// (BPC-PRP project) creating Track for robot
+// author: Petr Šopák (221022)
+// team: team 3
+// class function: exporting lines to .yaml format
+// used library from: https://github.com/SrejonKhan/AnotherFileBrowser
+
 using UnityEngine;
 using System.IO;
 using System.Globalization;
@@ -13,7 +17,9 @@ public class Export : MonoBehaviour
 
     private string path;
 
-
+    /// <summary>
+    /// Get path to export
+    /// </summary>
     public void ExportModel()
     {
         #if UNITY_STANDALONE_WIN
@@ -34,6 +40,10 @@ public class Export : MonoBehaviour
             return;
     }
 
+    /// <summary>
+    /// creating file with main Line points
+    /// </summary>
+    /// <param name="pathToFile"></param>
     private void Measure_Export(string pathToFile)
     {
         StreamWriter writer = new StreamWriter(path, true);
@@ -111,6 +121,10 @@ public class Export : MonoBehaviour
         writer.Close();
     }
 
+    /// <summary>
+    /// if Tri Line feature is used, the new lines will be exported
+    /// </summary>
+    /// <param name="writer"></param>
     private void WriteTriLines(StreamWriter writer)
     {
         for (int i = 0; i < line.triPoints.Count - 1; i+=2)
