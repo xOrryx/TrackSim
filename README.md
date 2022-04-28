@@ -1,6 +1,6 @@
 # TrackSim
 
-*Author - Petr Šopák*
+*Autor - Petr Šopák*
 
 ## Úvod
 TrackSim vznikl pro vytváření tratí pro projekt do předmětu BPC-PRP (VUT Brno). Aplikace je vytvořena pomocí Unity herní platformy.
@@ -57,4 +57,11 @@ Pro zjednodušení naklikávání bodů uživatelem byl vytvořen *Rastr*, kter�
 
 ### Export
 
-Unity nenabízí *standalone File browser*, který by fungoval v Runtime aplikaci. Proto byl zde použita knihovna od **[SrejonKhan](https://github.com/SrejonKhan/AnotherFileBrowser)**
+Unity nenabízí *standalone File browser*, který by fungoval v Runtime aplikaci. Proto byl zde použita knihovna od **[SrejonKhan](https://github.com/SrejonKhan/AnotherFileBrowser)**. Bohužel tato knihovna nepodporuje Linux, ale jenom Windows a iOS, proto je tato aplikace omezena na Windows (pro iOS nebyla odzkoušena), ale díky této knihovny zase lze vybrat místo uložení souboru, filtrace a přepis výsledného formátu souboru.
+
+*YAML soubor* byl vytvořen za pomocí textového souboru, do kterého jsou body uloženy do vytvořené šablony, aby měl strukturu jako zdrojový soubor přiložený na počátku semestru. Body jsou ukládány postupně, kdy prvně jsou uloženy body hlavní trasy a následně body tvořící vedlejší čáry.
+
+## TODO
+
+Pro zjednodušení práce bylo by vhodné implementovat **odstranění posledního bodu či reset trasy**, protože při chybného zakliknutí anebo po rozmyslení je potřeba resetovat celou aplikaci. Ostatní členové týmu toto nepotřebovali, tak to nebylo implementováno. 
+
