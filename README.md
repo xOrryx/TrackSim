@@ -1,13 +1,11 @@
 # TrackSim
 
-*Autor - Petr Šopák*
+*Autor - Petr Šopák (221022)*
 
 ## Úvod
 TrackSim vznikl pro vytváření tratí pro projekt do předmětu BPC-PRP (VUT Brno). Aplikace je vytvořena pomocí Unity herní platformy.
 
 Aplikaci lze stahnout **[ZDE](https://drive.google.com/file/d/1BBbptLxssqmlcz7bytOO-2H97Z4qp4ye/view?usp=sharing)**
-
-Příklad .yaml souboru lze stahnout **[ZDE]()**
 
 **Samotná aplikace je podporována pro _Windows_.** Důvod je vysvětlen v realizaci níže.
 
@@ -16,7 +14,7 @@ Příklad .yaml souboru lze stahnout **[ZDE]()**
 Vzhled aplikaci je vyzobrazen na obrázku (obr.1.), kde lze vidět všechny objekty uživatelského rozhraní (UI) a primitivního objektu *Plane*. UI představuje výběr či nastavování objektu Plane a samotné vykreslování čáry dle požadavků uživatele. Plane je mesh struktura vytvořena přímo Unity, která nabízí pár užitečných funkcí pro zjednodušení realizace.
 
 <div align = "center">
-<img width="550" height="400" src="/uploads/1695c35480e635f1b0c9bfe174f6357b/char1.PNG">
+<img width="650" height="350" src="https://user-images.githubusercontent.com/86803655/165863144-1f596855-632f-4417-9921-334ec9543978.PNG">
 
 Obr.1.: Vzhled aplikace TrackSim
 </div>
@@ -27,8 +25,9 @@ Samotným ideem bylo umožnit uživatele si naklikat body na rovinu, díky kter�
 
 Byly použité *paprsky* (rays) pro naklikávání bodů na plane, kdy jsou při každém kliknutí na *Canvas* (rovina pro pokládání objektů uživatelského rozhraní - je zde připojena k obrazu hlavní kamery *main*) je přepočítaná do *World* souřadného systému. Následně paprsky vrací kolize prvního (RayCast) anebo všech objektů (RayCastAll), kterými prochází, ale současně musí objekty tuto vlastnost kolize vlastnit. Proto k Planu byl připojen *komponent MeshCollidor* (komponenty jsou Assety objektu, které jsou k objektům připojeny a dodávájí jim přislušnou funkci), který vytvoří Collider mezi vrstvou mesh a meshBounds pro zachytávání událostí (Events). Tento proces Lze vidět na obrázku (obr.2.). Jak bylo předem řečeno, že Plane dává funkce, které ostatní primitivní objekty nedodávají a to metodu *ClosestPointOnPlane*, která vrací nejbližší bod v okolí projití paprsku Planem. Tímto je získáná přesnost během pozdějšího výpočtům mezi body například pro výpočet oblouku.
 
+  
 <div align = "center">
-<img width="550" height="400" src="/uploads/1695c35480e635f1b0c9bfe174f6357b/char1.PNG">
+<img width="700" height="450" src="https://user-images.githubusercontent.com/86803655/165862936-a08ef020-30ff-48a1-9351-4027204809bf.PNG">
 
 Obr.2.: Použití paprsků a kolize pro získávaní bodů
 </div>
@@ -46,7 +45,7 @@ Vedlejší oblouk byl vytvořen stejným způsobem, kdy všechny tři potřebné
 Hlavní trasa vždy má počátek v bodě [0,0,0] (dle pravidel soutěže) a následně jsou k nim přídávány kolizní body. Počáteční a naklikané body jsou vizuálně naznačeny primitivním objektem *krychle (Cube)*. Body jsou pospojeny pomocí _jedné_ čáry pomocí *LineRenderer* komponenty přidané pevně na *empty Objekt*. LineRenderer zajišťuje vytváření komplexních čar pomocí zadáním počtu a pozice bodů. Vizualizace čar lze vidět na obázku (obr.3.)
 
 <div align = "center">
-<img width="550" height="400" src="/uploads/1695c35480e635f1b0c9bfe174f6357b/char1.PNG">
+<img width="700" height="400" src="https://user-images.githubusercontent.com/86803655/165862790-a6397b48-2023-4dcc-a82c-2055724bd7b4.PNG">
 
 Obr.3.: Vizualizace čar a bodů
 </div>
